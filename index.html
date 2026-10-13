@@ -1,1 +1,262 @@
-<!DOCTYPE html><html style="height: 100%;"><body style="height: 100%; margin: 0;"><iframe src="https://copilotstudio.microsoft.com/environments/Default-9ef36566-f756-4f11-9c5f-307c10f409f9/bots/cre46_aicreativeagentteam_mrYlBL/webchat?__version__=2&enableFileAttachment=false&cliAgent=true" frameborder="0" style="width: 100%; height: 100%; border: 0;"></iframe></body></html>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Creative Agent Team</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <style>
+    :root {
+      --paper: #eeebe4;
+      --sheet: #ffffff;
+      --ink: #17160f;
+      --muted: #6a665b;
+      --line: #cfc9bc;
+      --accent: #1f4d3a;
+      --serif: "Noto Serif KR", "Iowan Old Style", "Apple SD Gothic Neo", serif;
+      --sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+              "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { height: 100%; margin: 0; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    .page {
+      height: 100vh;
+      height: 100dvh;
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: clamp(20px, 4vw, 56px);
+      display: grid;
+      grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
+      gap: clamp(32px, 5vw, 72px);
+    }
+
+    /* ---------- Left column ---------- */
+    .side {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 0;
+    }
+
+    .side > * { animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+    .side > :nth-child(2) { animation-delay: 0.12s; }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 20px;
+      height: 1px;
+      background: var(--ink);
+    }
+
+    h1 {
+      margin: 28px 0 0;
+      font-family: var(--serif);
+      font-weight: 600;
+      font-size: clamp(34px, 4.4vw, 56px);
+      line-height: 1.1;
+      letter-spacing: -0.025em;
+      word-break: keep-all;
+    }
+
+    .lede {
+      margin: 24px 0 0;
+      max-width: 30ch;
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--muted);
+      word-break: keep-all;
+    }
+
+    .facts {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--line);
+    }
+
+    .facts li {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px;
+    }
+
+    .facts li span:first-child { color: var(--muted); }
+
+    .note {
+      margin: 18px 0 0;
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--muted);
+      word-break: keep-all;
+    }
+
+    /* ---------- Chat panel ---------- */
+    .chat {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      background: var(--sheet);
+      border: 1px solid var(--ink);
+      animation: rise 0.9s 0.2s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    }
+
+    .chat-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--line);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .chat-bar b {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .chat-bar b::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+    }
+
+    .frame {
+      position: relative;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .frame iframe {
+      position: relative;
+      z-index: 1;
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .chat.loaded iframe { opacity: 1; }
+
+    .loader {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+      color: var(--muted);
+      overflow: hidden;
+      transition: opacity 0.4s ease;
+    }
+
+    .loader::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 30%;
+      height: 2px;
+      background: var(--accent);
+      animation: run 1.6s ease-in-out infinite;
+    }
+
+    @keyframes run {
+      from { transform: translateX(-100%); }
+      to   { transform: translateX(340%); }
+    }
+
+    .chat.loaded .loader { opacity: 0; pointer-events: none; }
+
+    /* ---------- Small screens ---------- */
+    @media (max-width: 820px) {
+      .page {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto minmax(0, 1fr);
+        gap: 20px;
+        padding: 18px;
+      }
+      h1 { margin-top: 14px; font-size: 30px; }
+      .lede, .facts, .note { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .side > *, .chat { animation: none; }
+      .loader::after { animation: none; width: 100%; opacity: 0.25; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="side">
+      <div>
+        <p class="eyebrow">Agent Team</p>
+        <h1>AI Creative<br>Agent Team</h1>
+        <p class="lede">아이디어를 구체적인 결과물로 발전시키는 대화형 에이전트입니다.</p>
+      </div>
+
+      <div>
+        <ul class="facts">
+          <li><span>Platform</span><span>Microsoft Copilot Studio</span></li>
+          <li><span>파일 첨부</span><span>사용 안 함</span></li>
+        </ul>
+        <p class="note">AI가 생성한 답변은 부정확할 수 있으니 중요한 내용은 꼭 확인해 주세요.</p>
+      </div>
+    </section>
+
+    <section class="chat" id="chat">
+      <div class="chat-bar"><b>Conversation</b><span>대화</span></div>
+      <div class="frame">
+        <div class="loader" aria-hidden="true">불러오는 중</div>
+        <iframe
+          title="AI Creative Agent Team 채팅"
+          src="https://copilotstudio.microsoft.com/environments/Default-9ef36566-f756-4f11-9c5f-307c10f409f9/bots/cre46_aicreativeagentteam_mrYlBL/webchat?__version__=2&enableFileAttachment=false&cliAgent=true"
+          onload="document.getElementById('chat').classList.add('loaded')">
+        </iframe>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
